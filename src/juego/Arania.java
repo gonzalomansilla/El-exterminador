@@ -31,16 +31,10 @@ public class Arania {
         this.x -= Math.cos(direccion) * 0.5;
         this.y -= Math.sin(direccion) * 0.5;
         if (chocaConUnEdifico(edificios)) {
-            cos = this.x - ext.getX();
-            sen = this.y - ext.getY();
-
-            direccion = Math.atan2(sen, cos);
-
+            direccion += 0.3;
             //Seguir modificando
-            this.x -= Math.cos(direccion += 0.3) * 0.5;
-            this.y -= Math.sin(direccion += 0.3) * 0.5;
-//            this.x -= 1;
-//            this.y -= 1;
+            this.x -= Math.cos(direccion) * 0.5;
+            this.y -= Math.sin(direccion) * 0.5;
         }
         chocaConVentana(e);
 

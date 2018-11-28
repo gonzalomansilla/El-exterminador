@@ -1,3 +1,4 @@
 Player - Score
 
-Gonzalo - 104
+Gonzalo - 104d - 3
+d - 12
