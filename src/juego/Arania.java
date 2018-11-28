@@ -30,14 +30,14 @@ public class Arania {
 
         this.x -= Math.cos(direccion) * 0.5;
         this.y -= Math.sin(direccion) * 0.5;
+        
         if (chocaConUnEdifico(edificios)) {
             direccion += 0.3;
-            //Seguir modificando
-            this.x -= Math.cos(direccion) * 0.5;
-            this.y -= Math.sin(direccion) * 0.5;
+            
+            this.x -= Math.cos(direccion + Math.PI) * 0.5;
+            this.y -= Math.sin(direccion + Math.PI) * 0.5;
         }
         chocaConVentana(e);
-
     }
 
     //Modificado
