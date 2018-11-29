@@ -49,7 +49,6 @@ public class Exterminador {
     public void girarHaciaDerecha() {
         this.direccion += 0.03;
         this.anguloImgExterminador += 0.03;
-
     }
 
     public void girarHaciaIzquierda() {
@@ -126,12 +125,6 @@ public class Exterminador {
         return y;
     }
 
-//    public List<Disparo> getDisparos() {
-//        return disparos;
-//    }
-//    public List<Mina> getMinas() {
-//        return minas;
-//    }
     public int vidas() {
         return vidas;
     }

@@ -23,22 +23,22 @@ public class Juego extends InterfaceJuego {
     private List<Arania> aranias;
     private List<Edificio> edificios;
     private List<Telarania> telaraniasLanzadas;
-
     private List<Disparo> disparos;
     private List<Mina> minas;
-
     private String jugador;
     private int ticks;
     private int tiempoDeGeneradoDeAranias;
     private int nivel;
     private int objetivo_AraniasAexterminar;
     private int objetivo;
+    private boolean juegoPausado;
     private boolean seCambiaDeNivel;
     private boolean finalizoJuego;
     private static File records;
     private Scanner teclado;
     private static Image imgFondo = Herramientas.cargarImagen("recursos/fondo.jpg");
     private static Image imgGameOver = Herramientas.cargarImagen("recursos/gameover.png");
+    private static Image imgPausa = Herramientas.cargarImagen("recursos/pausa.jpg");
 
     Juego() {
         this.ticks = 0;
@@ -58,6 +58,7 @@ public class Juego extends InterfaceJuego {
         this.teclado = new Scanner(System.in);
         System.out.print("Nombre del jugador: ");
         this.jugador = teclado.next();
+        
         //Toma la ruta relativa del archivo(Es diferente en cada PC)
         String direccion = new File("src/recursos/records.txt").getAbsolutePath();
         this.records = new File(direccion);
@@ -74,7 +75,7 @@ public class Juego extends InterfaceJuego {
             if (entorno.sePresiono(entorno.TECLA_ENTER)) {
                 reiniciarJuego();
             }
-        } else {
+        } else if(!juegoPausado){
             this.ticks++;
             this.entorno.dibujarImagen(imgFondo, entorno.ancho() / 2, entorno.alto() / 2, 0, 0.9);
             dibujarEdificios();
@@ -125,7 +126,11 @@ public class Juego extends InterfaceJuego {
                 exterminador.girarHaciaIzquierda();
             }
 
-            //********** - **********
+            //********** Pausa de juego ********** 
+            if(entorno.sePresiono(entorno.TECLA_ENTER)) {
+        	juegoPausado = true;
+            }
+            
             entorno.escribirTexto("Nivel: " + nivel, 700, 40);
             if (exterminador.puntos() >= 1 && exterminador.puntos() / objetivo_AraniasAexterminar == 1) {
                 seCambiaDeNivel = true;
@@ -136,8 +141,12 @@ public class Juego extends InterfaceJuego {
                 finalizarJuego();
                 return;
             }
+        }else {
+            entorno.dibujarImagen(imgPausa, 400, 300, 0, 1);
+            if(entorno.sePresiono(entorno.TECLA_ENTER)) {
+        	juegoPausado = false;
+            } 
         }
-
     }
 
     @SuppressWarnings("unused")
@@ -330,13 +339,10 @@ public class Juego extends InterfaceJuego {
         BufferedWriter bw = null;
         FileWriter fw = null;
         try {
-            //Obtengo el archivo records para ser escrito. si es true escribe al final del txt
             fw = new FileWriter(records, true);
             bw = new BufferedWriter(fw);
             String lineaTexto = this.jugador + " - " + exterminador.puntos();
-            //Escribo el String con un salto de linea
             bw.write(lineaTexto + "\r\n");
-
         } catch (IOException e) {
             System.out.println("Error : " + e.getMessage());
         } finally {
@@ -347,7 +353,6 @@ public class Juego extends InterfaceJuego {
                 if (fw != null) {
                     fw.close();
                 }
-
             } catch (IOException e) {
                 System.out.println("Error : " + e.getMessage());
             }
@@ -385,7 +390,6 @@ public class Juego extends InterfaceJuego {
                     finalizoJuego = true;
                     return true;
                 }
-
             }
         }
         return false;

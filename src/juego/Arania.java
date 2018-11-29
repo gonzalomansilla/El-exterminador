@@ -25,7 +25,6 @@ public class Arania {
         double cos = this.x - ext.getX();
         double sen = this.y - ext.getY();
 
-        //Si uso atan() no funciona para las de la derecha
         direccion = Math.atan2(sen, cos);
 
         this.x -= Math.cos(direccion) * 0.5;
