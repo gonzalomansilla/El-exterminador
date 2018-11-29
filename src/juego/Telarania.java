@@ -6,9 +6,9 @@ import java.awt.Image;
 
 public class Telarania {
 
+    private int tiempoDeVida;
     private double x;
     private double y;
-    private int tiempoDeVida;
     private static Image imgTelarania = Herramientas.cargarImagen("recursos/telarania.png");
 
     public Telarania(double x, double y) {
