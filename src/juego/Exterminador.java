@@ -11,9 +11,9 @@ public class Exterminador {
     private double y;
     private double direccion;
     private int vidas;
+    private int araniasExterminadas;
     private double anguloImgExterminador;
     private static Image imgExterminador = Herramientas.cargarImagen("recursos/heroe.png");
-    private int araniasExterminadas;
 
     public Exterminador(Entorno e) {
         this.x = e.ancho() / 2;
@@ -100,7 +100,8 @@ public class Exterminador {
 
     private boolean chocaConEdificio(List<Edificio> edificios) {
         for (Edificio edificio : edificios) {
-            double distancia = FuncionesAuxiliares.calcularDistancia(this.x, this.y, edificio.getX(), edificio.getY());
+            double distancia = FuncionesAuxiliares.calcularDistancia(
+                    this.x,this.y,edificio.getX() ,edificio.getY());
             if (distancia <= (Edificio.getAnchoImgEdificio() / 2)) {
                 return true;
             }

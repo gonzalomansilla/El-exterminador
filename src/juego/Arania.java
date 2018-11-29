@@ -10,8 +10,8 @@ public class Arania {
     private double x;
     private double y;
     private double direccion;
-    private static Image imgArania = Herramientas.cargarImagen("recursos/arania.png");
     private double anguloImgArania;
+    private static Image imgArania = Herramientas.cargarImagen("recursos/arania.png");
 
     public Arania(double x, double y, double direccion, double anguloImgArania) {
         this.x = x;
@@ -22,19 +22,16 @@ public class Arania {
 
     //Modificado
     public void perseguirExterminador(Exterminador ext, Entorno e, List<Edificio> edificios) {
-        double cos = this.x - ext.getX();
-        double sen = this.y - ext.getY();
-
-        direccion = Math.atan2(sen, cos);
-
-        this.x -= Math.cos(direccion) * 0.5;
-        this.y -= Math.sin(direccion) * 0.5;
-        
         if (chocaConUnEdifico(edificios)) {
-            direccion += 0.3;
-            
-            this.x -= Math.cos(direccion + Math.PI) * 0.5;
-            this.y -= Math.sin(direccion + Math.PI) * 0.5;
+            direccion += 1;
+            this.x -= Math.cos(direccion) * 1;
+            this.y -= Math.sin(direccion) * 1;
+        } else {
+            double cos = this.x - ext.getX();
+            double sen = this.y - ext.getY();
+            direccion = Math.atan2(sen, cos);
+            this.x -= Math.cos(direccion) * 0.5;
+            this.y -= Math.sin(direccion) * 0.5;
         }
         chocaConVentana(e);
     }
@@ -60,8 +57,12 @@ public class Arania {
 
     private boolean chocaConUnEdifico(List<Edificio> edificios) {
         for (Edificio edificio : edificios) {
-            double distancia = FuncionesAuxiliares.calcularDistancia(this.x, this.y, edificio.getX(), edificio.getY());
-            if (distancia <= (Edificio.getAnchoImgEdificio() / 2)) {
+            double distancia = FuncionesAuxiliares.calcularDistancia(
+                    this.x,
+                    this.y,
+                    edificio.getX(),
+                    edificio.getY());
+            if (distancia <= (Arania.getAnchoImgArania() / 3 + Edificio.getAnchoImgEdificio() / 3)) {
                 return true;
             }
         }
