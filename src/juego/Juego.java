@@ -58,7 +58,7 @@ public class Juego extends InterfaceJuego {
         this.teclado = new Scanner(System.in);
         System.out.print("Nombre del jugador: ");
         this.jugador = teclado.next();
-        
+
         //Toma la ruta relativa del archivo(Es diferente en cada PC)
         String direccion = new File("src/recursos/records.txt").getAbsolutePath();
         this.records = new File(direccion);
@@ -75,7 +75,7 @@ public class Juego extends InterfaceJuego {
             if (entorno.sePresiono(entorno.TECLA_ENTER)) {
                 reiniciarJuego();
             }
-        } else if(!juegoPausado){
+        } else if (!juegoPausado) {
             this.ticks++;
             this.entorno.dibujarImagen(imgFondo, entorno.ancho() / 2, entorno.alto() / 2, 0, 0.9);
             dibujarEdificios();
@@ -127,10 +127,10 @@ public class Juego extends InterfaceJuego {
             }
 
             //********** Pausa de juego ********** 
-            if(entorno.sePresiono(entorno.TECLA_ENTER)) {
-        	juegoPausado = true;
+            if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+                juegoPausado = true;
             }
-            
+
             entorno.escribirTexto("Nivel: " + nivel, 700, 40);
             if (exterminador.puntos() >= 1 && exterminador.puntos() / objetivo_AraniasAexterminar == 1) {
                 seCambiaDeNivel = true;
@@ -141,11 +141,11 @@ public class Juego extends InterfaceJuego {
                 finalizarJuego();
                 return;
             }
-        }else {
+        } else {
             entorno.dibujarImagen(imgPausa, 400, 300, 0, 1);
-            if(entorno.sePresiono(entorno.TECLA_ENTER)) {
-        	juegoPausado = false;
-            } 
+            if (entorno.sePresiono(entorno.TECLA_ENTER)) {
+                juegoPausado = false;
+            }
         }
     }
 
@@ -183,26 +183,8 @@ public class Juego extends InterfaceJuego {
     }
 
     private void verificarExplosionesDeMinas() {
-        if (!minas.isEmpty()) {
-            //Verifica si una mina fue pisada o si la misma activo otras minas
-            for (Mina mina : minas) {
-                Iterator<Arania> i_Aranias = aranias.iterator();
-                while (i_Aranias.hasNext()) {
-                    Arania arania = i_Aranias.next();
-                    //Comprueba las que no explotaron
-                    if (!mina.generoExplosion()) {
-                        if (mina.fuePisada(arania, entorno)) {
-                            mina.generarExplosion();
-                            exterminador.aumentarPuntos();
-                            if (aranias.contains(arania)) {
-                                i_Aranias.remove();
-                            }
-                        }
-                    }
-                }
-                mina.activarMinasCercanas(minas, entorno);
-            }
-        }
+        eliminarAraniasQuePisaronMina();
+
         if (explosionAlcanzoAlExterminador()) {
             finalizarJuego();
         }
@@ -229,8 +211,6 @@ public class Juego extends InterfaceJuego {
                 Iterator<Arania> i_Aranias = aranias.iterator();
                 while (i_Aranias.hasNext()) {
                     Arania arania = i_Aranias.next();
-                    //Compara con las aranias con las minas que explotaron
-                    //Soluciono el error: No eliminaba las minas tocadas por aranias
                     if (mina.generoExplosion()) {
                         double distancia = FuncionesAuxiliares.calcularDistancia(
                                 mina.getX(), mina.getY(), arania.getX(), arania.getY());
@@ -250,6 +230,29 @@ public class Juego extends InterfaceJuego {
         for (Mina mina : minas) {
             if (mina.generoExplosion()) {
                 mina.dibujarExplosion(entorno);
+            }
+        }
+    }
+
+    private void eliminarAraniasQuePisaronMina() {
+        if (!minas.isEmpty()) {
+            //Verifica si una mina fue pisada o si la misma activo otras minas
+            for (Mina mina : minas) {
+                Iterator<Arania> i_Aranias = aranias.iterator();
+                while (i_Aranias.hasNext()) {
+                    Arania arania = i_Aranias.next();
+                    //Comprueba las que no explotaron
+                    if (!mina.generoExplosion()) {
+                        if (mina.fuePisada(arania, entorno)) {
+                            mina.generarExplosion();
+                            exterminador.aumentarPuntos();
+                            if (aranias.contains(arania)) {
+                                i_Aranias.remove();
+                            }
+                        }
+                    }
+                }
+                mina.activarMinasCercanas(minas, entorno);
             }
         }
     }
