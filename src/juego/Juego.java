@@ -53,15 +53,12 @@ public class Juego extends InterfaceJuego {
         this.objetivo_AraniasAexterminar = 5;
         this.objetivo = 5;
         this.nivel = 1;
-
         generarEdificios();
         this.teclado = new Scanner(System.in);
         System.out.print("Nombre del jugador: ");
         this.jugador = teclado.next();
-
         String direccion = new File("src/recursos/records.txt").getAbsolutePath();
         this.records = new File(direccion);
-
         this.entorno.iniciar();
     }
 
@@ -262,7 +259,7 @@ public class Juego extends InterfaceJuego {
         }
     }
 
-    //********** *********
+    //**********  *********
     private void reiniciarJuego() {
         this.telaraniasLanzadas.clear();
         this.aranias.clear();
@@ -278,7 +275,6 @@ public class Juego extends InterfaceJuego {
         this.nivel = 1;
         this.finalizoJuego = false;
         reposicionarEdificios();
-
         jugar(entorno);
     }
 
