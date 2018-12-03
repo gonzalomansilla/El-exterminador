@@ -9,29 +9,29 @@ public class Arania {
 
     private double x;
     private double y;
-    private double direccion;
+    private double angulo;
     private double anguloImgArania;
     private static Image imgArania = Herramientas.cargarImagen("recursos/arania.png");
 
     public Arania(double x, double y, double direccion, double anguloImgArania) {
         this.x = x;
         this.y = y;
-        this.direccion = direccion;
+        this.angulo = direccion;
         this.anguloImgArania = anguloImgArania;
     }
 
     //Modificado
     public void perseguirExterminador(Exterminador ext, Entorno e, List<Edificio> edificios) {
         if (chocaConUnEdifico(edificios)) {
-            direccion += 1;
-            this.x -= Math.cos(direccion) * 1;
-            this.y -= Math.sin(direccion) * 1;
+            angulo += 1;
+            this.x -= Math.cos(angulo) * 1;
+            this.y -= Math.sin(angulo) * 1;
         } else {
             double cos = this.x - ext.getX();
             double sen = this.y - ext.getY();
-            direccion = Math.atan2(sen, cos);
-            this.x -= Math.cos(direccion) * 0.5;
-            this.y -= Math.sin(direccion) * 0.5;
+            angulo = Math.atan2(sen, cos);
+            this.x -= Math.cos(angulo) * 0.5;
+            this.y -= Math.sin(angulo) * 0.5;
         }
         chocaConVentana(e);
     }
@@ -55,13 +55,11 @@ public class Arania {
         }
     }
 
+    //Modificado
     private boolean chocaConUnEdifico(List<Edificio> edificios) {
         for (Edificio edificio : edificios) {
             double distancia = FuncionesAuxiliares.calcularDistancia(
-                    this.x,
-                    this.y,
-                    edificio.getX(),
-                    edificio.getY());
+                    this.x,this.y,edificio.getX(),edificio.getY());
             if (distancia <= (Arania.getAnchoImgArania() / 3 + Edificio.getAnchoImgEdificio() / 3)) {
                 return true;
             }
