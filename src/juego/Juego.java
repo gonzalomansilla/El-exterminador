@@ -66,8 +66,13 @@ public class Juego extends InterfaceJuego {
     public void tick() {
         if (finalizoJuego) {
             dibujarRecords();
+<<<<<<< HEAD
+            entorno.cambiarFont("Arial", 24, Color.WHITE);
+            entorno.escribirTexto("Presiona Enter para volver a jugar ", 220, 525);
+=======
             entorno.cambiarFont("Arial", 20, Color.WHITE);
             entorno.escribirTexto("Presiona Enter para volver a jugar ", 250, 525);
+>>>>>>> parent of 6580e1a... Limpieza final de codigo
             if (entorno.sePresiono(entorno.TECLA_ENTER)) {
                 reiniciarJuego();
             }

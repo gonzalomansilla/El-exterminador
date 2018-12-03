@@ -9,20 +9,39 @@ public class Arania {
 
     private double x;
     private double y;
+<<<<<<< HEAD
+    private double angulo;
+=======
     private double direccion;
+>>>>>>> parent of 6580e1a... Limpieza final de codigo
     private double anguloImgArania;
     private static Image imgArania = Herramientas.cargarImagen("recursos/arania.png");
 
     public Arania(double x, double y, double direccion, double anguloImgArania) {
         this.x = x;
         this.y = y;
+<<<<<<< HEAD
+        this.angulo = direccion;
+=======
         this.direccion = direccion;
+>>>>>>> parent of 6580e1a... Limpieza final de codigo
         this.anguloImgArania = anguloImgArania;
     }
 
     //Modificado
     public void perseguirExterminador(Exterminador ext, Entorno e, List<Edificio> edificios) {
         if (chocaConUnEdifico(edificios)) {
+<<<<<<< HEAD
+            angulo += 1;
+            this.x -= Math.cos(angulo) * 1;
+            this.y -= Math.sin(angulo) * 1;
+        } else {
+            double cos = this.x - ext.getX();
+            double sen = this.y - ext.getY();
+            angulo = Math.atan2(sen, cos);
+            this.x -= Math.cos(angulo) * 0.5;
+            this.y -= Math.sin(angulo) * 0.5;
+=======
             direccion += 1;
             this.x -= Math.cos(direccion) * 1;
             this.y -= Math.sin(direccion) * 1;
@@ -32,6 +51,7 @@ public class Arania {
             direccion = Math.atan2(sen, cos);
             this.x -= Math.cos(direccion) * 0.5;
             this.y -= Math.sin(direccion) * 0.5;
+>>>>>>> parent of 6580e1a... Limpieza final de codigo
         }
         chocaConVentana(e);
     }
@@ -55,6 +75,13 @@ public class Arania {
         }
     }
 
+<<<<<<< HEAD
+    //Modificado
+    private boolean chocaConUnEdifico(List<Edificio> edificios) {
+        for (Edificio edificio : edificios) {
+            double distancia = FuncionesAuxiliares.calcularDistancia(
+                    this.x,this.y,edificio.getX(),edificio.getY());
+=======
     private boolean chocaConUnEdifico(List<Edificio> edificios) {
         for (Edificio edificio : edificios) {
             double distancia = FuncionesAuxiliares.calcularDistancia(
@@ -62,6 +89,7 @@ public class Arania {
                     this.y,
                     edificio.getX(),
                     edificio.getY());
+>>>>>>> parent of 6580e1a... Limpieza final de codigo
             if (distancia <= (Arania.getAnchoImgArania() / 3 + Edificio.getAnchoImgEdificio() / 3)) {
                 return true;
             }
