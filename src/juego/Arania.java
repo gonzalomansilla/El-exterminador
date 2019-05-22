@@ -55,7 +55,6 @@ public class Arania {
         }
     }
 
-    //Modificado
     private boolean chocaConUnEdifico(List<Edificio> edificios) {
         for (Edificio edificio : edificios) {
             double distancia = FuncionesAuxiliares.calcularDistancia(
