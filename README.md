@@ -11,6 +11,6 @@ El jugador podrá exterminarlas usando ciertas armas como una pistola y unas min
  [3]: https://imgur.com/r6Cr8db.png
  [4]: https://i.imgur.com/aTN9TW4.png
  
-### Implementación
+### Diseño de clases
 
 ![Uml](https://i.imgur.com/8J1uFlX.png)
