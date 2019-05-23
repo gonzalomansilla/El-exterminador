@@ -1,7 +1,5 @@
 # El exterminador
 
-----------
-
 ### Video juego 2D
 El exterminador es un videojuego 2D donde se deberá eliminar unas arañas que irán apareciendo en el escenario de juego. Las mismas apareceran de **forma** **aleatoria** y cada vez más rápido, ademas de ir **automaticamente** hacia él jugador.  
 El jugador podrá exterminarlas usando ciertas armas como una pistola y unas minas de presión.
